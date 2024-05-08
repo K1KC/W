@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="Style/DisStyle.css"  >
+    <title>Bad Code Smells - Dispensables</title>
+</head>
+<body>
+        <nav>
+            <a class="HL_Home" href="index.html"><span style="color: red;">Bad</span> Code Smells</a>
+        </nav>
+        <div class="Dis">
+            <h2>Dispensables</h2>
+            <div class="Comments">
+                <h3>Comments</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    A method is filled with explanatory comments.
+                </p>
+
+                <h4>Examples</h4>
+                <pre>
+                    <code>
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("some code");
+        // System.out.println("error code");
+        System.out.println("some other code");
+
+    }
+}
+                    </code>
+                </pre>
+                <p>The comment spell out something obvious which is unneccesary</p><br /><br />
+            </div>
+            <div class="DuplicateCode">
+                <h3>Duplicate Code</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    Two code fragments look almost identical.  
+                </p>
+
+                <h4>Examples</h4>
+                <pre>
+                    <code>
+const rectangleLength = 5;
+const rectangleWidth = 3;
+const rectangleArea = rectangleLength * rectangleWidth;
+
+const triangleBase = 4;
+const triangleHeight = 6;
+const triangleArea = (triangleBase * triangleHeight) / 2;
+
+console.log(`Rectangle area: ${rectangleArea}`);
+console.log(`Triangle area: ${triangleArea}`);
+                    </code>
+                </pre>
+                <p>Both method looks almost identical to return the area of the shapes</p>
+                <h4>Refactor</h4>
+                <pre>
+                    <code>
+function calculateArea(base, height, shape) {
+    if (shape === 'rectangle') {
+        return base * height;
+    } else if (shape === 'triangle') {
+        return (base * height) / 2;
+    } else {
+        throw new Error('Unsupported shape');
+    }
+}
+
+const rectangleArea = calculateArea(5, 3, 'rectangle');
+
+const triangleArea = calculateArea(4, 6, 'triangle');
+
+console.log(`Rectangle area: ${rectangleArea}`);
+console.log(`Triangle area: ${triangleArea}`);
+                    </code>
+                </pre>
+                <p>Both method can be combined into a single function</p><br /><br />
+            </div>
+            <div class="LazyClass">
+                <h3>Lazy Class</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    Understanding and maintaining classes always costs time and money. So if a class doesn’t do enough to earn your attention, it should be deleted.  
+                </p>
+
+                <h4>Examples</h4>
+                <p>Let say, there is a class for Price</p>
+                <pre>
+                    <code>
+public class Price {
+	private int value;
+	
+	public Price(int value) throws Exception {
+		if(!isPriceValid(value)) {
+			throw new Exception("price not valid");
+		}
+		
+		this.value = value;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+}
+                    </code>
+                </pre>
+                <p>And there is a class for validate price</p>
+                <pre>
+                    <code>
+public class PriceValidator {
+	public static boolean validate(int value){
+		return value >= 0;
+	}
+}
+                    </code>
+                </pre>
+                <p>This class only have a single job</p>
+                <h4>Refactor</h4>
+                <pre>
+                    <code>
+public class Price {
+	private int value;
+	
+	public Price(int value) throws Exception {
+		if(!isPriceValid(value)) {
+			throw new Exception("price not valid");
+		}
+		
+		this.value = value;
+	}
+
+	private boolean isPriceValid(int value){
+		return value >= 0;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+}
+                    </code>
+                </pre>
+                <p>Move the function to the Price class</p><br /><br />
+            </div>
+            <div class="DataClass">
+                <h3>Data Class</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    A data class refers to a class that contains only fields and crude methods for accessing them (getters and setters). 
+                    These are simply containers for data used by other classes. These classes don't contain any additional 
+                    functionality and can't independently operate on the data that they own.  
+                </p>
+
+                <h4>Examples</h4>
+                <pre>
+                    <code>
+public class FullName {
+	private String firstName;
+	private String lastName;
+	
+	public FullName(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+}
+                    </code>
+                </pre>
+                <p>This class only contain getter and setter for firstName and lastName</p>
+                <h4>Refactor</h4>
+                <pre>
+                    <code>
+public class User {
+	private String firstName;
+	private String lastName;
+
+    public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+                    </code>
+                </pre>
+                <p>Move all field of Fullname class into the main class that will be majorly used, let say "User" class</p><br /><br />
+            </div>
+            <div class="DeadCode">
+                <h3>Dead Code</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    A variable, parameter, field, method or class is no longer used (usually because it’s obsolete).
+                </p>
+
+                <h4>Examples</h4>
+                <p>Let say, there's this function for discount price calculator</p>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount){
+    if(price < 10000){
+      discountPrice = price * 0.1;
+    } else {
+      discountPrice = price * 0.2;
+    }
+  }
+
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <p>
+                    But suddenly, there is a change of requirement which makes the discount will always be 15% 
+                      so the dev add the change to the function without delete the previous one
+
+                </p>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount){
+    if(price < 10000){
+      discountPrice = price * 0.1;
+    } else {
+      discountPrice = price * 0.2;
+    }
+  }
+
+  if(isDiscount)
+    discountPrice = price * 0.15;
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <h4>Refactor</h4>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount)
+    discountPrice = price * 0.15;
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <p>We can safely delete the unnecessary part</p><br /><br />
+            </div>
+            <div class="SpeculativeGenerality">
+                <h3>Speculative Generality</h3>
+                <h4>Signs and Symptoms</h4>
+                <p>
+                    There's an unused class, method, field or parameter which was initially made for future cases, despite being unlisted in the initial requirement.
+                </p>
+
+                <h4>Examples</h4>
+                <p>Let say, there's this currency function</p>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount){
+    if(price < 10000){
+      discountPrice = price * 0.1;
+    } else {
+      discountPrice = price * 0.2;
+    }
+  }
+
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <p>
+                    But suddenly, there is a change of requirement which makes the discount will always be 15% 
+                      so the dev add the change to the function without delete the previous one
+
+                </p>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount){
+    if(price < 10000){
+      discountPrice = price * 0.1;
+    } else {
+      discountPrice = price * 0.2;
+    }
+  }
+
+  if(isDiscount)
+    discountPrice = price * 0.15;
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <h4>Refactor</h4>
+                <pre>
+                    <code>
+public double calculate(double price, boolean isDiscount){
+  double discountPrice = 0;
+
+  if(isDiscount)
+    discountPrice = price * 0.15;
+  return price - discountPrice;
+}
+                    </code>
+                </pre>
+                <p>We can safely delete the unnecessary part</p><br /><br />
+            </div>
+        </div>
+        <footer>
+            <div class="left_foot">
+                <p>Claresco Gerres - 2602055685</p>
+                <p>
+                    References:<br />
+                    <a class="HL_Ref1" href="https://refactoring.guru/refactoring/smells">https://refactoring.guru/refactoring/smells</a><br />
+                    <a class="HL_Ref2" href="https://akmalrusli363.github.io/smell/">https://akmalrusli363.github.io/smell/</a>
+            </div>
+            <div class="right_foot">
+                <p>Code Reengineering</p>
+                <p>REZKI YUNANDA, S.Kom., M.Kom - D6665</p>
+            </div>
+        </footer>
+</body>
+</html>
