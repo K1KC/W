@@ -1,0 +1,115 @@
+
+* {
+    font-family: 'Source Sans Pro';
+}
+
+body {
+    background-image: url('https://64.media.tumblr.com/b29afc099269a74c0a2c0169545327bd/tumblr_ndv49dBypR1qjmwryo1_400.gifv');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+    
+nav {
+    padding: 20px;
+    margin: 10px -10px 30px -10px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bolder;
+    font-size: 52px;
+    color: white;
+    text-align: center;
+}
+
+.content_cont {
+    margin-top: -2rem;
+    margin:1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+
+.content {
+    width: 30%;
+    height: 410px;
+    padding: 20px;
+    margin: 10px 20px 20px 60px;
+    vertical-align: text-top;
+    border: 2px solid white;
+    border-radius: 12px;
+    display: inline-block;
+    text-align: center;
+    background-image: linear-gradient(90deg, rgba(64,64,92,1) 30%, rgba(55,80,143,1) 100%);
+    color: white;
+}
+
+.Btn_CP {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+    font-weight: bolder;
+    padding: 18px 32px ;
+    margin: 1rem;
+    cursor: pointer;
+    border-radius: 50px;
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.Btn_Dis {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+    font-weight: bolder;
+    padding: 18px 32px;
+    margin: 1rem;
+    cursor: pointer;
+    border-radius: 50px;
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.Btn_CP:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.Btn_Dis:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn {
+    width: 30%;
+    padding: 20px;
+    margin: 20px 20px 20px 60px;
+    display: inline-block;
+    text-align: center;
+}
+
+footer {
+    background-color: darkslategray;
+    color: white;
+    width: 100%;
+    padding: 5px 20px 5px 10px;
+    margin: 20px -10px -10px -10px;
+    display: inline-flex;
+    bottom: 0;
+}
+
+.left-foot {
+    margin-left: 15px;
+    margin-right: auto;
+}
+
+.right_foot {
+    float: right;
+    margin-right: 15px;
+    margin-left: auto;
+    text-align: right;
+}
